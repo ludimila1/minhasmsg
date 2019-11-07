@@ -1,6 +1,19 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlquemy
 
 app = Flask(__name__)
+db=SQLAlquemy(app)
+
+app.config["SCLALCHEMY_DATABASE_URI"] = "sqlite:///minhasmensagens.db"
+
+class Mensagens(db.Model):
+    id = db.Column(db.integer, primary_key=True)
+    mensagem = db.Column(db.Text, nullable=False)
+
+    def __repre__(self):
+        return "<<<MSG: %r>>>"self.mensagem
+
+
 
 @app.route("/")
 def index():
